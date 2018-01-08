@@ -2,26 +2,10 @@ package com.company;
 
 public class Registro {
 
-    public String getDay() {
-        return day;
-    }
-
-    public Double getMaxTemp() {
-        return maxTemp;
-    }
-
-    public Double getMinTemp() {
-        return minTemp;
-    }
-
-    public Double getDifTemp() {
-        return difTemp;
-    }
-
-    private String day = null;
-    private Double maxTemp = null;
-    private Double minTemp = null;
-    private Double difTemp = null;
+    private String day;
+    private Double maxTemp;
+    private Double minTemp;
+    private Double difTemp;
 
     public Registro(String day, Double maxTemp, Double minTemp, Double difTemp) {
         this.day = day;
@@ -51,5 +35,21 @@ public class Registro {
 
     public void setDifTemp(Double difTemp) {
         this.difTemp = difTemp;
+    }
+
+    public String getDay() {
+        return this.day;
+    }
+
+    public Double getMaxTemp() {
+        return this.maxTemp;
+    }
+
+    public Double getMinTemp() {
+        return this.minTemp;
+    }
+
+    public Double getDifTemp() {
+        return this.difTemp;
     }
 }

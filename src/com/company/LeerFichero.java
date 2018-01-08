@@ -58,18 +58,20 @@ public class LeerFichero {
 
                 // Anyado el nuevo registro
                 wather.add(miRegistro);
+                System.out.println(wather.size());
 
             }
         }
         br.close();
 
         // Mostrar el registro con la diferencia de temperatura menor
-        Double minimaDiferencia = 99.0;
+        Double minimaDiferencia = 99.9;
         int indiceRegistro = 0;
 
-
         for (int i = 0; i < wather.size(); i++){
+            System.out.println("Bucle***********************");
             miRegistro = wather.get(i);
+            System.out.println(miRegistro.getDifTemp());
             if (miRegistro.getDifTemp() < minimaDiferencia && miRegistro.getDay() != "Registro ignorado") {
                 indiceRegistro = i;
                 minimaDiferencia = miRegistro.getDifTemp();
