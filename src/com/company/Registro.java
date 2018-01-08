@@ -2,6 +2,22 @@ package com.company;
 
 public class Registro {
 
+    public String getDay() {
+        return day;
+    }
+
+    public Double getMaxTemp() {
+        return maxTemp;
+    }
+
+    public Double getMinTemp() {
+        return minTemp;
+    }
+
+    public Double getDifTemp() {
+        return difTemp;
+    }
+
     private String day = null;
     private Double maxTemp = null;
     private Double minTemp = null;

@@ -36,13 +36,12 @@ public class LeerFichero {
             // ya que hay líneas sin datos
             try{
                 dy  = cadena.substring(0, Coodenadas.DAYNUMBER);
-                System.out.println("A----->" + cadena.substring(Coodenadas.DAYNUMBER, Coodenadas.MAXTEMP));
-                System.out.println("B----->" + cadena.substring(Coodenadas.MAXTEMP, Coodenadas.MINTEMP));
                 max = Double.parseDouble(cadena.substring(Coodenadas.DAYNUMBER, Coodenadas.MAXTEMP));
                 min = Double.parseDouble(cadena.substring(Coodenadas.MAXTEMP, Coodenadas.MINTEMP));
             }
             catch(Exception StringIndexOutOfBoundsException){
-                dy  = null;
+
+                dy  = "Registro ignorado";
                 max = 0.0;
                 min = 0.0;
             }
@@ -61,9 +60,29 @@ public class LeerFichero {
                 wather.add(miRegistro);
 
             }
-
         }
         br.close();
+
+        // Mostrar el registro con la diferencia de temperatura menor
+        Double minimaDiferencia = 99.0;
+        int indiceRegistro = 0;
+
+
+        for (int i = 0; i < wather.size(); i++){
+            miRegistro = wather.get(i);
+            if (miRegistro.getDifTemp() < minimaDiferencia && miRegistro.getDay() != "Registro ignorado") {
+                indiceRegistro = i;
+                minimaDiferencia = miRegistro.getDifTemp();
+                System.out.println("dia registrado");
+            };
+        }
+
+        System.out.println("El día con la menor diferencia de temperatura máxima y minima es el registro --> " + indiceRegistro);
+        System.out.println("Día: " + wather.get(indiceRegistro).getDay());
+        System.out.println("Máxima Temperatura: " + wather.get(indiceRegistro).getMaxTemp());
+        System.out.println("Minima Temperatura: " + wather.get(indiceRegistro).getMinTemp());
+        System.out.println("Diferencia: " + wather.get(indiceRegistro).getDifTemp());
+
     }
 
     public static void main(String[] args) throws IOException{
