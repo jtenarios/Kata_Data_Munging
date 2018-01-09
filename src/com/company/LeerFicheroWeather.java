@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class LeerFichero {
+public class LeerFicheroWeather {
 
     // Lee el contenido del fichero
     static void muestraContenido(String archivo) throws FileNotFoundException, IOException {
 
-        String cadena = null; //Inicializo a "0" para que entre la primera vez en el buclo While
+        String cadena = null;
         String dy = null;
         Double max = null;
         Double min = null;
@@ -26,7 +26,7 @@ public class LeerFichero {
 
         while ((cadena = br.readLine()) != null){
 
-            cadena = cadena.replace("*", " "); // Elimino los espacios
+            cadena = cadena.replace("*", " "); // Elimino los caracteres extranyos
 
             // Codigo susceptible a fallar
             try{
@@ -62,13 +62,13 @@ public class LeerFichero {
         //System.out.println("Fin del bulce");
 
         // Mostrar el registro con la diferencia de temperatura menor
-        Double minimaDiferencia = 99.9;
+        Double minimaDiferencia = -1.0;
         int indiceRegistro = 0;
 
         //System.out.println("wather.size():" + wather.size());
         for (int i = 0; i < wather.size(); i++){
 
-            if (wather.get(i).getDifTemp() < minimaDiferencia) {
+            if ( (wather.get(i).getDifTemp() < minimaDiferencia) || minimaDiferencia ==-1.0) {
                 indiceRegistro = i;
                 minimaDiferencia = wather.get(i).getDifTemp();
             };
@@ -80,9 +80,5 @@ public class LeerFichero {
                                                                     "\nMinima Temperatura: " + wather.get(indiceRegistro).getMinTemp() +
                                                                     "\nDiferencia: " + wather.get(indiceRegistro).getDifTemp());
 
-    }
-
-    public static void main(String[] args) throws IOException{
-        muestraContenido("C:\\Users\\jtena\\Downloads\\weather.dat");
     }
 }
