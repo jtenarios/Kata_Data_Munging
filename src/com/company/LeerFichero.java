@@ -12,7 +12,7 @@ public class LeerFichero {
     // Lee el contenido del fichero
     static void muestraContenido(String archivo) throws FileNotFoundException, IOException {
 
-        String cadena = "0"; //Inicializo a "0" para que entre la primera vez en el buclo While
+        String cadena = null; //Inicializo a "0" para que entre la primera vez en el buclo While
         String dy = null;
         Double max = null;
         Double min = null;
@@ -27,25 +27,19 @@ public class LeerFichero {
         FileReader fr = new FileReader(archivo);
         BufferedReader br = new BufferedReader(fr);
 
+        cadena = br.readLine();
+
         while (cadena != null){
-            cadena = br.readLine();
-            //cadena = cadena.replace(" ", ""); // Elimino los espacios
+
+            cadena = cadena.replace("*", " "); // Elimino los espacios
 
 
-            // Codigo susceptible a falla por StringIndexOutOfBoundsException
-            // ya que hay líneas sin datos
+            // Codigo susceptible a fallar
             try{
                 dy  = cadena.substring(0, Coodenadas.DAYNUMBER);
                 max = Double.parseDouble(cadena.substring(Coodenadas.DAYNUMBER, Coodenadas.MAXTEMP));
                 min = Double.parseDouble(cadena.substring(Coodenadas.MAXTEMP, Coodenadas.MINTEMP));
-            }
-            catch(Exception StringIndexOutOfBoundsException){
 
-                dy  = "Registro ignorado";
-                max = 0.0;
-                min = 0.0;
-            }
-            finally{
                 //System.out.println(cadena);
                 System.out.println(dy + " - " + max + " - " + min + " - " + (max - min));
                 System.out.println("-------------------------");
@@ -58,23 +52,34 @@ public class LeerFichero {
 
                 // Anyado el nuevo registro
                 wather.add(miRegistro);
-                System.out.println(wather.size());
+            }
+            catch(Exception StringIndexOutOfBoundsException){
 
+                //dy  = "Registro ignorado";
+                //max = 0.0;
+                //min = 0.0;
+                StringIndexOutOfBoundsException.printStackTrace();
+                System.out.println("Registro ignorado");
+            } finally {
+                cadena = br.readLine();
             }
         }
         br.close();
+        System.out.println("Fin del bulce");
 
         // Mostrar el registro con la diferencia de temperatura menor
         Double minimaDiferencia = 99.9;
         int indiceRegistro = 0;
 
+        System.out.println("wather.size():" + wather.size());
         for (int i = 0; i < wather.size(); i++){
-            System.out.println("Bucle***********************");
-            miRegistro = wather.get(i);
-            System.out.println(miRegistro.getDifTemp());
-            if (miRegistro.getDifTemp() < minimaDiferencia && miRegistro.getDay() != "Registro ignorado") {
+
+            System.out.println(i);
+            System.out.println(wather.get(i).getDifTemp());
+
+            if (wather.get(i).getDifTemp() < minimaDiferencia) {
                 indiceRegistro = i;
-                minimaDiferencia = miRegistro.getDifTemp();
+                minimaDiferencia = wather.get(i).getDifTemp();
                 System.out.println("dia registrado");
             };
         }
